@@ -16,9 +16,9 @@ Make all services independent and call them in the right order in `main()` metho
 
 #### Don't keep all logic in a single package
 You can use packages to make the structure of the code better, so let's do it. Gather classes with same 
-purpose/common logic in a corresponding package.
-
-Your project structure should consist the following packages:
+purpose/common log
+Your project structureic in a corresponding package.
+ should consist the following packages:
 - `db` for holding Storage
 - `model` for holding models like Fruit (if necessary)
 - `service` for holding services, like Writer, Reader, Parser and so on
