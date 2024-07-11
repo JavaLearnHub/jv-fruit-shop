@@ -13,17 +13,12 @@ public class TransactionParser {
     private static final int QUANTITY_INDEX = 2;
 
     public static ArrayList<Transaction> parseToTransaction(ArrayList<String> storeActivities) {
-        ArrayList<Transaction> storeTransactions = new ArrayList<>();
 
-        for (String activity : storeActivities) {
-            String[] activityInfo = activity.strip().split(DATA_SEPARATOR);
-
-            storeTransactions.add(new Transaction(OperationEnum.
-                    getOperation(activityInfo[OPERATION_INDEX]),
-                    activityInfo[PRODUCT_INDEX],
-                    Integer.parseInt(activityInfo[QUANTITY_INDEX])));
-        }
-
-        return storeTransactions;
+        return new ArrayList<>(storeActivities.stream()
+                .map(a -> a.strip().split(DATA_SEPARATOR))
+                .map(a -> new Transaction(OperationEnum.getOperation(a[OPERATION_INDEX]),
+                        a[PRODUCT_INDEX],
+                        Integer.parseInt(a[QUANTITY_INDEX])))
+                .toList());
     }
 }

@@ -15,5 +15,4 @@ public class Transaction {
         this.product = product;
         this.quantity = quantity;
     }
-
 }

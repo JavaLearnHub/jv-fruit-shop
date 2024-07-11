@@ -2,9 +2,9 @@ package service;
 
 import lombok.SneakyThrows;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Reader {
@@ -12,14 +12,11 @@ public class Reader {
     @SneakyThrows(IOException.class)
     public static ArrayList<String> readLines(String filePath) {
 
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        ArrayList<String> fileRowsArray = new ArrayList<>();
-        String line = reader.readLine();
+        File file = new File(filePath);
 
-        while ((line = reader.readLine()) != null) {
-            fileRowsArray.add(line);
-        }
+        ArrayList<String> fileRows = new ArrayList<>(Files.lines(file.toPath()).toList());
+        fileRows.remove(0);
 
-        return fileRowsArray;
+        return fileRows;
     }
 }

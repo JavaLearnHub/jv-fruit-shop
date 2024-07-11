@@ -5,11 +5,11 @@ import db.Storage;
 public class ReportCreator {
 
     private static final String DATA_SEPARATOR = ",";
+    private static final StringBuilder storeActivitiesReport = new StringBuilder();
 
     public static String createReport(Storage storage) {
 
-        StringBuilder storeActivitiesReport = new StringBuilder()
-                .append("fruit,quantity")
+        storeActivitiesReport.append("fruit,quantity")
                 .append(System.lineSeparator());
 
         for (String product : storage.getProductsNames()) {
