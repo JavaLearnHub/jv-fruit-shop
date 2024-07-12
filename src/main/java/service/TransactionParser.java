@@ -1,9 +1,10 @@
 package service;
 
 import dto.Transaction;
+import lombok.val;
 import model.OperationEnum;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionParser {
 
@@ -11,14 +12,30 @@ public class TransactionParser {
     private static final int OPERATION_INDEX = 0;
     private static final int PRODUCT_INDEX = 1;
     private static final int QUANTITY_INDEX = 2;
+    private static final int NORMAL_ACTIVITY_LENGTH = 3;
 
-    public static ArrayList<Transaction> parseToTransaction(ArrayList<String> storeActivities) {
 
-        return new ArrayList<>(storeActivities.stream()
-                .map(a -> a.strip().split(DATA_SEPARATOR))
-                .map(a -> new Transaction(OperationEnum.getOperation(a[OPERATION_INDEX]),
-                        a[PRODUCT_INDEX],
-                        Integer.parseInt(a[QUANTITY_INDEX])))
-                .toList());
+    public static List<Transaction> parseToTransaction(List<String> storeActivities) {
+
+        return storeActivities.stream()
+                .map(TransactionParser::splitActivity)
+                .map(TransactionParser::createTransaction)
+                .toList();
+    }
+
+    private static String[] splitActivity(String activity){
+
+        val splitActivityArray = activity.strip().split(DATA_SEPARATOR);
+        if (splitActivityArray.length != NORMAL_ACTIVITY_LENGTH) {
+            throw new IllegalArgumentException();
+        }
+        return splitActivityArray;
+    }
+
+    private static  Transaction createTransaction(String[] transactionInfo){
+
+        return new Transaction(OperationEnum.getOperation(transactionInfo[OPERATION_INDEX]),
+                transactionInfo[PRODUCT_INDEX],
+                Integer.parseInt(transactionInfo[QUANTITY_INDEX]));
     }
 }

@@ -7,14 +7,15 @@ import model.OperationEnum;
 public class Validator {
 
     public static void validate(Transaction transaction, Storage storage) throws WrongQuantityException {
+        int productQuantity = storage.getQuantity(transaction.getProduct()).orElse(0);
 
-        if (transaction.getOperation().equals(OperationEnum.PURCHASE)) {
-            int productQuantity = storage.getQuantity(transaction.getProduct()).orElse(0);
-
-            if (productQuantity < transaction.getQuantity()) {
-                throw new WrongQuantityException("Wrong product quantity.");
-            }
+        if (checkQuantity(transaction, productQuantity)) {
+            throw new WrongQuantityException("Wrong product quantity.");
         }
-
+    }
+    private static boolean checkQuantity(Transaction transaction, int productQuantity){
+        return (transaction.getOperation().equals(OperationEnum.PURCHASE) &&
+                productQuantity < transaction.getQuantity()) ||
+                transaction.getQuantity() == 0;
     }
 }

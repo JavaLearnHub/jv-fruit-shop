@@ -12,7 +12,6 @@ public class Writer {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write(infoToWrite);
         writer.close();
-
     }
 }
 

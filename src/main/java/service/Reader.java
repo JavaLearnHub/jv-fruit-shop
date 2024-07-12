@@ -5,18 +5,17 @@ import lombok.SneakyThrows;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Reader {
+    private static final int LINE_TO_SKIP = 1;
 
     @SneakyThrows(IOException.class)
-    public static ArrayList<String> readLines(String filePath) {
+    public static List<String> readLines(String filePath) {
 
-        File file = new File(filePath);
-
-        ArrayList<String> fileRows = new ArrayList<>(Files.lines(file.toPath()).toList());
-        fileRows.remove(0);
-
-        return fileRows;
+        return Files.lines(new File(filePath).toPath())
+                .skip(LINE_TO_SKIP)
+                .filter(line -> !line.trim().isEmpty())
+                .toList();
     }
 }
