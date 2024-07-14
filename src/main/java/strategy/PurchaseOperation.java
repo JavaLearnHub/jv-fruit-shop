@@ -13,5 +13,4 @@ public class PurchaseOperation implements Operation {
 
         storage.saveToStorage(transactionProduct, oldQuantity - transaction.getQuantity());
     }
-
 }

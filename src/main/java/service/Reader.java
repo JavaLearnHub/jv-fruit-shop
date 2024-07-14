@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.List;
 
 public class Reader {
+
     private static final int LINE_TO_SKIP = 1;
 
     @SneakyThrows(IOException.class)

@@ -1,9 +1,12 @@
 package db;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
-public class StorageImpl implements Storage{
+public class StorageImpl implements Storage {
+
     private static final HashMap<String, Integer> STORAGE = new HashMap<>();
 
     @Override
@@ -15,7 +18,11 @@ public class StorageImpl implements Storage{
         return Optional.ofNullable(STORAGE.get(product));
     }
 
-    public String[] getProductsNames(){
-        return STORAGE.keySet().toArray(new String[0]);
+    public List<String> getProductsNames() {
+        return new ArrayList<>(STORAGE.keySet());
+    }
+
+    public void clear() {
+        STORAGE.clear();
     }
 }

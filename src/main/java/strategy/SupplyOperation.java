@@ -13,5 +13,4 @@ public class SupplyOperation implements Operation {
 
         storage.saveToStorage(transactionProduct, oldQuantity + transaction.getQuantity());
     }
-
 }

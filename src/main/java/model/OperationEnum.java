@@ -19,7 +19,7 @@ public enum OperationEnum {
                 return op;
             }
         }
-        return null;
+        throw new UnsupportedOperationException();
     }
 
 }

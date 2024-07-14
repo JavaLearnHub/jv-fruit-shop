@@ -12,7 +12,7 @@ public class TransactionParser {
     private static final int OPERATION_INDEX = 0;
     private static final int PRODUCT_INDEX = 1;
     private static final int QUANTITY_INDEX = 2;
-    private static final int NORMAL_ACTIVITY_LENGTH = 3;
+    private static final int EXPECTED_ACTIVITY_LENGTH = 3;
 
 
     public static List<Transaction> parseToTransaction(List<String> storeActivities) {
@@ -23,18 +23,20 @@ public class TransactionParser {
                 .toList();
     }
 
-    private static String[] splitActivity(String activity){
+    private static String[] splitActivity(String activity) {
 
         val splitActivityArray = activity.strip().split(DATA_SEPARATOR);
-        if (splitActivityArray.length != NORMAL_ACTIVITY_LENGTH) {
-            throw new IllegalArgumentException();
+        if (splitActivityArray.length != EXPECTED_ACTIVITY_LENGTH) {
+            throw new IllegalArgumentException("Wrong file format at this line: "
+                    + activity);
         }
         return splitActivityArray;
     }
 
-    private static  Transaction createTransaction(String[] transactionInfo){
+    private static Transaction createTransaction(String[] transactionInfo) {
 
-        return new Transaction(OperationEnum.getOperation(transactionInfo[OPERATION_INDEX]),
+        return new Transaction(OperationEnum
+                .getOperation(transactionInfo[OPERATION_INDEX]),
                 transactionInfo[PRODUCT_INDEX],
                 Integer.parseInt(transactionInfo[QUANTITY_INDEX]));
     }

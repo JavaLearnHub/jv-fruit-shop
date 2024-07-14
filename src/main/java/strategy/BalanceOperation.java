@@ -10,5 +10,4 @@ public class BalanceOperation implements Operation {
 
         storage.saveToStorage(transaction.getProduct(), transaction.getQuantity());
     }
-
 }
